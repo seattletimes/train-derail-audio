@@ -62,15 +62,16 @@ players.forEach(function(container) {
       var rough = parseVTT(text);
       //re-parse into sentences
 
-      var enders = /[.?!](\s|$)/;
+      var enders = /[.?!]+(\s|$)/;
       var current = { text: "", start: 0 };
 
       var process = function(item, i, list) {
-        var ended = item.text.search(enders);
-        if (ended == -1) {
+        var match = item.text.match(enders);
+        if (!match) {
           current.text += " " + item.text;
           if (i == list.length - 1) transcript.push(current);
         } else {
+          var ended = match.index + match[0].length - 1;
           current.text += " " + item.text.slice(0, ended + 1);
           current.text = current.text.trim();
           current.end = item.end;
