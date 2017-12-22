@@ -1,0 +1,86 @@
+@import "seattletimes";
+
+@monospace: monospace;
+@red: @df-blue;
+
+@keyframes typing {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.audio-player {
+  position: relative;
+  width: 100%;
+  padding: 20px 0;
+  margin: 20px 0;
+  border-bottom: 1px solid @df-light-gray;
+
+  audio {
+    margin: auto;
+    display: block;
+    min-width: 50%;
+
+    @media @mobile {
+      width: 100%;
+    }
+  }
+
+  .transcript-box {
+    position: relative;
+    min-height: 20vh;
+    padding: 40px;
+
+    transition: all .3s linear;
+    opacity: 1;
+
+    @media @mobile {
+      padding: 32px 16px;
+    }
+
+    &.paused {
+      color: @df-middle-gray;
+    }
+
+    .line {
+      font-family: @monospace;
+      font-size: 32px;
+
+      @media @mobile {
+        font-size: 16px;
+      }
+
+      &.intro {
+        text-align: center;
+        line-height: 1.7;
+      }
+
+      .speaker {
+        background: @red;
+        color: white;
+        display: inline-block;
+        padding: 4px 16px;
+        font-weight: bold;
+        font-size: 80%;
+      }
+
+      &.prep {
+        position: absolute;
+        transition: all .3s linear;
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      &.fade {
+        // transform: translateY(-20px);
+        opacity: 0;
+      }
+
+      &.active {
+        .typed {
+          animation: step-start typing .2s both;
+        }
+      }
+    }
+  }
+
+}
